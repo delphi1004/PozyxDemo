@@ -1,3 +1,8 @@
+// This is OSCServer by John Lee 29 Jan 2019
+// It receives a data from Arduino and broadcast to the all clients by OSC message
+//
+
+
 import processing.serial.*;
 import oscP5.*;
 import netP5.*;
@@ -19,8 +24,6 @@ HashMap<String, PVector> tagPositions;
 
 void setup()
 {
-  //fullScreen();
-  
   size(300,200);
 
   background(0);
@@ -85,13 +88,13 @@ void sendOscMsg(String data)
   OscMessage oscMsg;
   
   oscMsg = new OscMessage("/pozyx");
-  
   oscMsg.add(data);  
   
   oscP5.send(oscMsg, myNetAddressList);
 }
 
 void serialEvent(Serial p) 
+{
   String recvData;
   String []parseData;
 

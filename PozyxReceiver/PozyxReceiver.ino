@@ -65,7 +65,7 @@ void setup(){
 }
 
 void loop(){
-  for (int i = 1; i < num_tags; i++){
+  for (int i = 1; i < num_tags; i++){  // To void see the error msg, I just modified i starts from 1, because we can't get a data from base sensor which is index 0
     coordinates_t position;
     int status = Pozyx.doRemotePositioning(tags[i], &position, dimension, height, algorithm);
     if (status == POZYX_SUCCESS){

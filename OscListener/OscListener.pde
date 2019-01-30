@@ -18,12 +18,9 @@ void setup()
 {
   
   fullScreen();
-  
-  //size(400,400);
-  
-  /* create a new instance of oscP5. 
-   * 12000 is the port number you are listening for incoming osc messages.
-   */
+   
+  //create a new instance of oscP5. 
+  //12000 is the port number you are listening for incoming osc messages.
   
   oscP5 = new OscP5(this,12000);
   
@@ -58,12 +55,10 @@ void disconnectServer()
   oscP5.flush(msg,myBroadcastLocation); 
 }
   
-
 void oscEvent(OscMessage theOscMessage) 
 {
   String recvData;
   String []parseData;
-
     
   if (theOscMessage.addrPattern().equals("/pozyx") == true)
   {
@@ -77,7 +72,7 @@ void oscEvent(OscMessage theOscMessage)
     {  
       tagPositions.put(parseData[1], new PVector(int(parseData[2]), int(parseData[3]), int(parseData[4])));
       
-      println(tagPositions); // for make sure , if we have correct data
+      //println(tagPositions); // for make sure , if we have correct data
     }
   }
 }
