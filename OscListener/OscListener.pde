@@ -24,8 +24,8 @@ void setup()
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
-  oscP5 = new OscP5(this,12000);
   
+  oscP5 = new OscP5(this,12000);
   
   /* the address of the osc broadcast server */
   myBroadcastLocation = new NetAddress("10.100.34.254",32000);
