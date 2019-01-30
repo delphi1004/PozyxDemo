@@ -61,18 +61,10 @@ void disconnectServer()
 
 void oscEvent(OscMessage theOscMessage) 
 {
-  float temp;
-  float speed;
   String recvData;
   String []parseData;
-  OscMessage oscMsg;
 
-  speed = 0;
-  
-   /* get and print the address pattern and the typetag of the received OscMessage */
- // println("### received an osc message with addrpattern "+theOscMessage.addrPattern()+" and typetag "+theOscMessage.typetag());
- // theOscMessage.print();
-  
+    
   if (theOscMessage.addrPattern().equals("/pozyx") == true)
   {
     println("received data");
@@ -108,18 +100,9 @@ void displayTags()
   }
 }
   
-  
 void draw()
 {
   displayTags();
   
   text("I'm OSC listener!!",20,20);
 }
-  
-  
-  
-  
-  
-  
-  
-  
