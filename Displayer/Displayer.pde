@@ -92,14 +92,8 @@ void sendOscMsg(String data)
 }
 
 void serialEvent(Serial p) 
-{ 
-  float temp;
-  float speed;
   String recvData;
   String []parseData;
-  OscMessage oscMsg;
-
-  speed = 0;
 
   recvData = arduino.readStringUntil('\n'); 
 
