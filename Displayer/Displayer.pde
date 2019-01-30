@@ -18,6 +18,8 @@ void setup()
 
   noStroke();
   
+  textSize(32);
+  
   initDefaultData();
 }
 
@@ -99,5 +101,7 @@ void draw()
     tagPos = (PVector)tagInfo.getValue();
         
     ellipse(tagPos.x/SCALE,tagPos.y/SCALE,20,20);
+    
+    text((String)tagInfo.getKey(), tagPos.x/SCALE-20,tagPos.y/SCALE+25);
   }
 }
