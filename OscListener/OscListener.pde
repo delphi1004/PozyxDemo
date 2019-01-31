@@ -16,7 +16,6 @@ HashMap<String, PVector> tagPositions;
 
 void setup() 
 {
-  
   fullScreen();
    
   //create a new instance of oscP5. 
@@ -25,7 +24,7 @@ void setup()
   oscP5 = new OscP5(this,12000);
   
   /* the address of the osc broadcast server */
-  myBroadcastLocation = new NetAddress("10.100.34.254",32000);
+  myBroadcastLocation = new NetAddress("10.100.34.254",32000); // please change server IP
   
   initDefaultData();
 }

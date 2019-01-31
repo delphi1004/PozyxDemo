@@ -53,29 +53,18 @@ void initSerial()
 
   index = 0;
 
-  println(Serial.list());
-  println("");
-
-  for (int i=0; i<Serial.list().length; i++)
+ // println(Serial.list());
+ // println("");
+ 
+ println("here is all serial port you have, please select correct index for your arduino!");
+ println(" ");
+  
+  for (int i=0;i<Serial.list().length;i++)
   {
-    name = Serial.list()[i];
-
-    if (name.contains("14101") == true || name.contains("14201") == true)
-    {
-      index = i; 
-
-      println("Found Arduino "+name);
-
-      break;
-    }
+    println("Serial port index = "+i+ " Name is "+Serial.list()[i]);
   }
 
-  if (Serial.list().length > 0)
-  {
-    arduino = new Serial(this, Serial.list()[index], 115200);
-
-    println(arduino);
-  }
+  arduino = new Serial(this, Serial.list()[5], 115200); // find your serial port and use index
 }
 
 void initOSC()
@@ -160,7 +149,6 @@ private void disconnect(String theIPaddress)
   
   println("### currently there are "+myNetAddressList.list().size());
 }
-
 
 void draw()
 {
