@@ -17,8 +17,8 @@
 ////////////////// PARAMETERS //////////////////
 ////////////////////////////////////////////////
 
-const int num_tags = 3;
-uint16_t tags[num_tags] = {0x675f, 0x6749,0x6735};
+const int num_tags = 5;
+uint16_t tags[num_tags] = {0x675f, 0x6749,0x6735,0x673a,0x6759};
 
 boolean use_processing = true;                         // set this to true to output data for the processing sketch
 

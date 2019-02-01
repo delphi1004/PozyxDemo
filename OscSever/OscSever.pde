@@ -64,7 +64,7 @@ void initSerial()
     println("Serial port index = "+i+ " Name is "+Serial.list()[i]);
   }
 
-  arduino = new Serial(this, Serial.list()[5], 115200); // find your serial port and use index
+  arduino = new Serial(this, Serial.list()[3], 115200); // find your serial port and use index
 }
 
 void initOSC()
