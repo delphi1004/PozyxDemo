@@ -64,13 +64,23 @@ void setup(){
   Serial.println(F("Starting positioning: "));
 }
 
-void loop(){
-  for (int i = 1; i < num_tags; i++){  // To void see the error msg, I just modified i starts from 1, because we can't get a data from base sensor which is index 0
-    coordinates_t position;
-    int status = Pozyx.doRemotePositioning(tags[i], &position, dimension, height, algorithm);
-    if (status == POZYX_SUCCESS){
-    // prints out the result
-    printCoordinates(position, tags[i]);
+void loop()
+{
+  int status1,status2;
+  coordinates_t position;
+  euler_angles_t angle;
+  
+  for (int i = 1; i < num_tags; i++)
+  {  // To void see the error msg, I just modified i starts from 1, because we can't get a data from base sensor which is index 0
+    
+    status1 = Pozyx.doRemotePositioning(tags[i], &position, dimension, height, algorithm);
+    status2 = Pozyx.getEulerAngles_deg(&angle);
+    
+    if (status1 == POZYX_SUCCESS && status2 == POZYX_SUCCESS)
+    {
+      // prints out the result
+      printCoordinates(position,angle, tags[i]);
+    
     }else{
       // prints out the error code
       printErrorCode("positioning", tags[i]);
@@ -79,8 +89,11 @@ void loop(){
 }
 
 // prints the coordinates for either humans or for processing
-void printCoordinates(coordinates_t coor, uint16_t network_id){
-  if(!use_processing){
+void printCoordinates(coordinates_t coor,  euler_angles_t angle , uint16_t network_id)
+{
+  
+  if(!use_processing)
+  {
     Serial.print("POS ID 0x");
     Serial.print(network_id, HEX);
     Serial.print(", x(mm): ");
@@ -88,7 +101,13 @@ void printCoordinates(coordinates_t coor, uint16_t network_id){
     Serial.print(", y(mm): ");
     Serial.print(coor.y);
     Serial.print(", z(mm): ");
-    Serial.println(coor.z);
+    Serial.print(coor.z);
+    Serial.print(", yaw(degree): ");
+    Serial.print(angle.heading);
+    Serial.print(", roll(degree): ");
+    Serial.print(angle.roll);
+    Serial.print(", pitch(degree): ");
+    Serial.print(angle.pitch);
   }else{
     Serial.print("POS,0x");
     Serial.print(network_id, HEX);
@@ -97,15 +116,24 @@ void printCoordinates(coordinates_t coor, uint16_t network_id){
     Serial.print(",");
     Serial.print(coor.y);
     Serial.print(",");
-    Serial.println(coor.z);
+    Serial.print(coor.z);
+    Serial.print(",");
+    Serial.print(angle.heading);
+    Serial.print(",");
+    Serial.print(angle.roll);
+    Serial.print(",");
+    Serial.println(angle.pitch);
   }
 }
 
 // error printing function for debugging
-void printErrorCode(String operation, uint16_t network_id){
+void printErrorCode(String operation, uint16_t network_id)
+{
   uint8_t error_code;
   int status = Pozyx.getErrorCode(&error_code, network_id);
-  if(status == POZYX_SUCCESS){
+  
+  if(status == POZYX_SUCCESS)
+  {
     Serial.print("ERROR ");
     Serial.print(operation);
     Serial.print(" on ID 0x");
@@ -121,14 +149,16 @@ void printErrorCode(String operation, uint16_t network_id){
   }
 }
 
-void setTagsAlgorithm(){
+void setTagsAlgorithm()
+{
   for (int i = 0; i < num_tags; i++){
     Pozyx.setPositionAlgorithm(algorithm, dimension, tags[i]);
   }
 }
 
 // function to manually set the anchor coordinates
-void setAnchorsManual(){
+void setAnchorsManual()
+{
   for (int i = 0; i < num_tags; i++){
     int status = Pozyx.clearDevices(tags[i]);
     for(int j = 0; j < num_anchors; j++){
