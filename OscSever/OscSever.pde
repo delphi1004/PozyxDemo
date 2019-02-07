@@ -21,6 +21,7 @@ String myDisconnectPattern = "/server/disconnect";
 float SCALE = 10;
 
 HashMap<String, PVector> tagPositions;
+HashMap<String, PVector> tagAngle;
 
 void setup()
 {
@@ -40,6 +41,7 @@ void setup()
 void initDefaultData()
 {
   tagPositions = new HashMap<String, PVector>();
+  tagAngle = new HashMap<String, PVector>();
 
   initSerial();
 
@@ -64,7 +66,7 @@ void initSerial()
     println("Serial port index = "+i+ " Name is "+Serial.list()[i]);
   }
 
-  arduino = new Serial(this, Serial.list()[3], 115200); // find your serial port and use index
+  arduino = new Serial(this, Serial.list()[4], 115200); // find your serial port and use index
 }
 
 void initOSC()
@@ -98,6 +100,7 @@ void serialEvent(Serial p)
     if (parseData[0].equals("POS") == true)
     {  
       tagPositions.put(parseData[1], new PVector(int(parseData[2]), int(parseData[3]), int(parseData[4])));
+      tagAngle.put(parseData[1],new PVector(int(parseData[5]), int(parseData[6]), int(parseData[7])));
       
       sendOscMsg(recvData);
 

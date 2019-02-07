@@ -74,7 +74,7 @@ void loop()
   {  // To void see the error msg, I just modified i starts from 1, because we can't get a data from base sensor which is index 0
     
     status1 = Pozyx.doRemotePositioning(tags[i], &position, dimension, height, algorithm);
-    status2 = Pozyx.getEulerAngles_deg(&angle);
+    status2 = Pozyx.getEulerAngles_deg(&angle,tags[i]);
     
     if (status1 == POZYX_SUCCESS && status2 == POZYX_SUCCESS)
     {
