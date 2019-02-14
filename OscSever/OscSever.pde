@@ -43,9 +43,13 @@ void initDefaultData()
   tagPositions = new HashMap<String, PVector>();
   tagAngle = new HashMap<String, PVector>();
 
-  initSerial();
-
   initOSC();
+  
+  delay(1000);
+
+  initSerial();
+  
+  delay(1000);
 }
 
 void initSerial()
@@ -66,12 +70,16 @@ void initSerial()
     println("Serial port index = "+i+ " Name is "+Serial.list()[i]);
   }
 
-  arduino = new Serial(this, Serial.list()[4], 115200); // find your serial port and use index
+  arduino = new Serial(this, Serial.list()[2], 115200); // find your serial port and use index
+
+  arduino.bufferUntil('\n');
 }
 
 void initOSC()
 {
   oscP5 = new OscP5(this, myListeningPort);
+  
+  println(oscP5);
 }
 
 void sendOscMsg(String data)
@@ -80,9 +88,10 @@ void sendOscMsg(String data)
   
   oscMsg = new OscMessage("/pozyx");
   oscMsg.add(data);  
-  
+ 
   oscP5.send(oscMsg, myNetAddressList);
 }
+
 
 void serialEvent(Serial p) 
 {
@@ -90,7 +99,7 @@ void serialEvent(Serial p)
   String []parseData;
 
   recvData = arduino.readStringUntil('\n'); 
-
+  
   if (recvData != null)
   {
     recvData = trim(recvData);
@@ -107,6 +116,7 @@ void serialEvent(Serial p)
       //println(tagPositions); // for make sure , if we have correct data
     }
   }
+  
 }
 
 void oscEvent(OscMessage theOscMessage) 

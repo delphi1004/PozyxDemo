@@ -17,8 +17,11 @@
 ////////////////// PARAMETERS //////////////////
 ////////////////////////////////////////////////
 
-const int num_tags = 5;
-uint16_t tags[num_tags] = {0x675f, 0x6749,0x6735,0x673a,0x6759};
+const int num_tags = 3;
+//uint16_t tags[num_tags] = {0x675f, 0x6749,0x6735,0x673a,0x6759};
+//uint16_t tags[num_tags] = {0x675f, 0x6749,0x6759,0x673a};
+
+uint16_t tags[num_tags] = {0x675f,0x6759,0x6735};
 
 boolean use_processing = true;                         // set this to true to output data for the processing sketch
 
@@ -61,29 +64,38 @@ void setup(){
   setTagsAlgorithm();
   delay(1000);
 
+  
   Serial.println(F("Starting positioning: "));
 }
 
 void loop()
 {
   int status1,status2;
+  long startTime;
   coordinates_t position;
   euler_angles_t angle;
   
   for (int i = 1; i < num_tags; i++)
   {  // To void see the error msg, I just modified i starts from 1, because we can't get a data from base sensor which is index 0
+
+    startTime = millis();
     
     status1 = Pozyx.doRemotePositioning(tags[i], &position, dimension, height, algorithm);
     status2 = Pozyx.getEulerAngles_deg(&angle,tags[i]);
-    
+
     if (status1 == POZYX_SUCCESS && status2 == POZYX_SUCCESS)
     {
+      //Serial.print("time = ");
+      //Serial.println(millis() - startTime);
+      
       // prints out the result
       printCoordinates(position,angle, tags[i]);
     
     }else{
+      //Serial.print("time = ");
+      //Serial.println(millis() - startTime);
       // prints out the error code
-      printErrorCode("positioning", tags[i]);
+       //printErrorCode("positioning", tags[i]);
     }
   }
 }
@@ -150,9 +162,10 @@ void printErrorCode(String operation, uint16_t network_id)
 }
 
 void setTagsAlgorithm()
-{
+{  
   for (int i = 0; i < num_tags; i++){
     Pozyx.setPositionAlgorithm(algorithm, dimension, tags[i]);
+  
   }
 }
 
