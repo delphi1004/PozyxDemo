@@ -17,13 +17,18 @@
 ////////////////// PARAMETERS //////////////////
 ////////////////////////////////////////////////
 
-const int num_tags = 5;
-uint16_t tags[num_tags] = {0x675f, 0x6749,0x6735,0x673a,0x6759};
+// this is for groups
+//const int num_tags = 5;
+//uint16_t tags[num_tags] = {0x675f, 0x6749,0x6735,0x673a,0x6759};
+
+const int num_tags = 4;
+uint16_t tags[num_tags] = {0x675f, 0x6749,0x6735,0x673a};
 
 //this for Pekka
 //const int num_tags = 2;
-//uint16_t tags[num_tags] = {0x675f,0x6735};
-
+//uint16_t tags[num_tags] = {0x675f,0x6735}; // we have to use tag id 0x675f as base tag , you should change second tag ID
+                                             // please stop processing(oscServer) first then upload this code to arduino after that restart it processing
+                                             
 boolean use_processing = true;                         // set this to true to output data for the processing sketch
 
 const uint8_t num_anchors = 4;                                    // the number of anchors
